@@ -1,12 +1,12 @@
 package rs.raf.projekat_jul_marko_mihailovic_rn252020.data.repositories
 
-import rs.raf.projekat_jul_marko_mihailovic_rn252020.data.models.MealCategory
-import rs.raf.projekat_jul_marko_mihailovic_rn252020.data.models.Resource
 import io.reactivex.Completable
 import io.reactivex.Observable
+import rs.raf.projekat_jul_marko_mihailovic_rn252020.data.models.Meal
+import rs.raf.projekat_jul_marko_mihailovic_rn252020.data.models.Resource
 
 interface MealRepository {
-    fun fetchAll(): Observable<Resource<Unit>>
-    fun getAll(): Observable<List<MealCategory>>
-    fun insert(meal: MealCategory): Completable
+    fun fetchAll(name: String): Observable<Resource<Unit>>
+    fun getAll(): Observable<List<Meal>>
+    fun insert(meal: Meal): Completable
 }

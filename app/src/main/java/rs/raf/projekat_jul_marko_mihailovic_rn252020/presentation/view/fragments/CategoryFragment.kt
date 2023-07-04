@@ -9,8 +9,8 @@ import androidx.core.view.isVisible
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
-import rs.raf.projekat_jul_marko_mihailovic_rn252020.presentation.view.recycler.adapter.MealAdapter
-import rs.raf.projekat_jul_marko_mihailovic_rn252020.presentation.view.states.MealsState
+import rs.raf.projekat_jul_marko_mihailovic_rn252020.presentation.view.recycler.adapter.MealCategoryAdapter
+import rs.raf.projekat_jul_marko_mihailovic_rn252020.presentation.view.states.MealsCateogoryState
 import rs.raf.projekat_jul_marko_mihailovic_rn252020.R
 import rs.raf.projekat_jul_marko_mihailovic_rn252020.databinding.FragmentListBinding
 import rs.raf.projekat_jul_marko_mihailovic_rn252020.presentation.contract.MainContract
@@ -18,7 +18,7 @@ import rs.raf.projekat_jul_marko_mihailovic_rn252020.presentation.viewmodel.Main
 import org.koin.androidx.viewmodel.ext.android.sharedViewModel
 import timber.log.Timber
 
-class ListFragment : Fragment(R.layout.fragment_list) {
+class CategoryFragment : Fragment(R.layout.fragment_list) {
 
     // Koristimo by sharedViewModel jer sada view modele instanciramo kroz koin
     private val mainViewModel: MainContract.ViewModel by sharedViewModel<MainViewModel>()
@@ -28,7 +28,7 @@ class ListFragment : Fragment(R.layout.fragment_list) {
     // onDestroyView.
     private val binding get() = _binding!!
 
-    private lateinit var adapter: MealAdapter
+    private lateinit var adapter: MealCategoryAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -56,7 +56,7 @@ class ListFragment : Fragment(R.layout.fragment_list) {
 
     private fun initRecycler() {
         binding.listRv.layoutManager = LinearLayoutManager(context)
-        adapter = MealAdapter()
+        adapter = MealCategoryAdapter()
         binding.listRv.adapter = adapter
     }
 
@@ -68,7 +68,7 @@ class ListFragment : Fragment(R.layout.fragment_list) {
     }
 
     private fun initObservers() {
-        mainViewModel.mealsState.observe(viewLifecycleOwner, Observer {
+        mainViewModel.mealsCategoryState.observe(viewLifecycleOwner, Observer {
             Timber.e(it.toString())
             renderState(it)
         })
@@ -82,21 +82,21 @@ class ListFragment : Fragment(R.layout.fragment_list) {
         mainViewModel.fetchAllMovies()
     }
 
-    private fun renderState(state: MealsState) {
+    private fun renderState(state: MealsCateogoryState) {
         when (state) {
-            is MealsState.Success -> {
+            is MealsCateogoryState.Success -> {
                 showLoadingState(false)
                 adapter.submitList(state.movies)
             }
-            is MealsState.Error -> {
+            is MealsCateogoryState.Error -> {
                 showLoadingState(false)
                 Toast.makeText(context, state.message, Toast.LENGTH_SHORT).show()
             }
-            is MealsState.DataFetched -> {
+            is MealsCateogoryState.DataFetched -> {
                 showLoadingState(false)
                 Toast.makeText(context, "Fresh data fetched from the server", Toast.LENGTH_LONG).show()
             }
-            is MealsState.Loading -> {
+            is MealsCateogoryState.Loading -> {
                 showLoadingState(true)
             }
         }

@@ -5,8 +5,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import rs.raf.projekat_jul_marko_mihailovic_rn252020.R
-import rs.raf.projekat_jul_marko_mihailovic_rn252020.presentation.view.fragments.InputFragment
-import rs.raf.projekat_jul_marko_mihailovic_rn252020.presentation.view.fragments.ListFragment
+import rs.raf.projekat_jul_marko_mihailovic_rn252020.presentation.view.fragments.MealNameFragment
+import rs.raf.projekat_jul_marko_mihailovic_rn252020.presentation.view.fragments.CategoryFragment
 
 class MainPagerAdapter(
     fragmentManager: FragmentManager,
@@ -21,8 +21,8 @@ class MainPagerAdapter(
 
     override fun getItem(position: Int): Fragment {
         return when(position) {
-            FRAGMENT_1 -> ListFragment()
-            else -> InputFragment()
+            FRAGMENT_1 -> CategoryFragment()
+            else -> MealNameFragment()
         }
     }
 
