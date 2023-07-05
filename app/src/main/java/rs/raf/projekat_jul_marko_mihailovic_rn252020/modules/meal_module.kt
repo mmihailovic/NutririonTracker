@@ -9,16 +9,20 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 import rs.raf.projekat_jul_marko_mihailovic_rn252020.data.repositories.MealRepository
 import rs.raf.projekat_jul_marko_mihailovic_rn252020.data.repositories.MealRepositoryImplementation
+import rs.raf.projekat_jul_marko_mihailovic_rn252020.data.repositories.MealShortRepository
+import rs.raf.projekat_jul_marko_mihailovic_rn252020.data.repositories.MealShortRepositoryImplementation
+import rs.raf.projekat_jul_marko_mihailovic_rn252020.presentation.viewmodel.IngredientViewModel
 
 val mealModule = module {
 
     viewModel { MainViewModel(mealCategoryRepository = get(), mealRepository = get()) }
-
+    viewModel { IngredientViewModel(mealRepository = get())}
     single<MealCategoryRepository> { MealCategoryRepositoryImplementation(localDataSource = get(), remoteDataSource = get()) }
-
+    single<MealShortRepository> {MealShortRepositoryImplementation(localDataSource = get(), remoteDataSource = get())}
     single<MealRepository> {MealRepositoryImplementation(localDataSource = get(), remoteDataSource = get())}
     single { get<MealCategoryDatabase>().getMealCategoryDao() }
     single { get<MealCategoryDatabase>().getMealDao() }
+    single {get<MealCategoryDatabase>().getMealShortDao()}
     single<MealService> { create(retrofit = get()) }
 
 }
