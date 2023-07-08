@@ -16,4 +16,11 @@ interface MealService {
 
     @GET("filter.php")
     fun searchByIngredient(@Query("i") name: String): Observable<MealShortResponseWrapper>
+
+    @GET("filter.php")
+    fun allMealsForCategory(@Query("c") category: String): Observable<MealShortResponseWrapper>
+
+    @GET("lookup.php")
+    fun mealDetails(@Query("i") id: String): Observable<MealResponseWrapper>
+
 }

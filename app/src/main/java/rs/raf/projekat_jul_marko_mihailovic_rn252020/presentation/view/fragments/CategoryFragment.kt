@@ -51,20 +51,12 @@ class CategoryFragment : Fragment(R.layout.fragment_list) {
 
     private fun initUi() {
         initRecycler()
-        initListeners()
     }
 
     private fun initRecycler() {
         binding.listRv.layoutManager = LinearLayoutManager(context)
-        adapter = MealCategoryAdapter()
+        adapter = MealCategoryAdapter(mainViewModel as MainViewModel)
         binding.listRv.adapter = adapter
-    }
-
-    private fun initListeners() {
-//        binding.inputEt.doAfterTextChanged {
-//            val filter = it.toString()
-//            mainViewModel.getMoviesByName(filter)
-//        }
     }
 
     private fun initObservers() {
@@ -72,13 +64,13 @@ class CategoryFragment : Fragment(R.layout.fragment_list) {
             Timber.e(it.toString())
             renderState(it)
         })
-        // Pravimo subscription kad observablu koji je vezan za getAll iz baze
-        // Na svaku promenu tabele, obserrvable ce emitovati na onNext sve elemente
-        // koji zadovoljavaju query
+        mainViewModel.clickedItem.observe(viewLifecycleOwner, Observer { clickedItem ->
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainerView, MealsForCategoryFragment(clickedItem.category))
+                .addToBackStack(null)
+                .commit()
+        })
         mainViewModel.getAllMovies()
-        // Pokrecemo operaciju dovlacenja podataka sa servera, kada podaci stignu,
-        // bice sacuvani u bazi, tada ce se triggerovati observable na koji smo se pretplatili
-        // preko metode getAllMovies()
         mainViewModel.fetchAllMovies()
     }
 
@@ -103,7 +95,6 @@ class CategoryFragment : Fragment(R.layout.fragment_list) {
     }
 
     private fun showLoadingState(loading: Boolean) {
-//        binding.inputEt.isVisible = !loading
         binding.listRv.isVisible = !loading
         binding.loadingPb.isVisible = loading
     }

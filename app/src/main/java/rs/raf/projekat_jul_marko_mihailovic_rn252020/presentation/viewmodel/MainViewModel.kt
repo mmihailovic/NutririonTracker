@@ -26,9 +26,8 @@ class MainViewModel(
     override val mealsCategoryState: MutableLiveData<MealsCateogoryState> = MutableLiveData()
     override val mealsState: MutableLiveData<MealsState> = MutableLiveData()
     override val addDone: MutableLiveData<AddMealState> = MutableLiveData()
-
+    override val clickedItem: MutableLiveData<MealCategory> = MutableLiveData()
     private val publishSubject: PublishSubject<String> = PublishSubject.create()
-
     init {
         val subscription = publishSubject
             .debounce(200, TimeUnit.MILLISECONDS)

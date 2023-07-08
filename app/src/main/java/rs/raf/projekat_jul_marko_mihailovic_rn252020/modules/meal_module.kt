@@ -12,11 +12,15 @@ import rs.raf.projekat_jul_marko_mihailovic_rn252020.data.repositories.MealRepos
 import rs.raf.projekat_jul_marko_mihailovic_rn252020.data.repositories.MealShortRepository
 import rs.raf.projekat_jul_marko_mihailovic_rn252020.data.repositories.MealShortRepositoryImplementation
 import rs.raf.projekat_jul_marko_mihailovic_rn252020.presentation.viewmodel.IngredientViewModel
+import rs.raf.projekat_jul_marko_mihailovic_rn252020.presentation.viewmodel.MealDetailsViewModel
+import rs.raf.projekat_jul_marko_mihailovic_rn252020.presentation.viewmodel.MealsForCategoryViewModel
 
 val mealModule = module {
 
     viewModel { MainViewModel(mealCategoryRepository = get(), mealRepository = get()) }
     viewModel { IngredientViewModel(mealRepository = get())}
+    viewModel { MealsForCategoryViewModel(mealRepository = get()) }
+    viewModel {MealDetailsViewModel(mealRepository = get())}
     single<MealCategoryRepository> { MealCategoryRepositoryImplementation(localDataSource = get(), remoteDataSource = get()) }
     single<MealShortRepository> {MealShortRepositoryImplementation(localDataSource = get(), remoteDataSource = get())}
     single<MealRepository> {MealRepositoryImplementation(localDataSource = get(), remoteDataSource = get())}

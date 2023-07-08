@@ -32,9 +32,41 @@ class MealShortRepositoryImplementation(
             }
     }
 
+    override fun fetchAllByCategory(name: String): Observable<Resource<Unit>> {
+        return remoteDataSource
+            .allMealsForCategory(name)
+            .doOnNext {
+                val entities = it.meals.map {
+                    MealShortEntity(
+                        it.idMeal,
+                        it.strMeal,
+                        it.strMealThumb
+                    )
+                }
+                localDataSource.deleteAndInsertAll(entities)
+            }
+            .map {
+                Resource.Success(Unit)
+            }
+    }
+
     override fun getAll(): Observable<List<MealShort>> {
         return localDataSource
             .getAll()
+            .map {
+                it.map {
+                    MealShort(
+                        it.idMeal,
+                        it.strMeal,
+                        it.strMealThumb
+                    )
+                }
+            }
+    }
+
+    override fun getAllWithPagination(pocetak: Int): Observable<List<MealShort>> {
+        return localDataSource
+            .getAllWithPagination(pocetak)
             .map {
                 it.map {
                     MealShort(

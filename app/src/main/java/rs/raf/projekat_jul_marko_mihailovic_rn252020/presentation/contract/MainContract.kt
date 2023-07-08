@@ -11,6 +11,7 @@ interface MainContract {
         val mealsCategoryState: LiveData<MealsCateogoryState>
         val mealsState: LiveData<MealsState>
         val addDone: LiveData<AddMealState>
+        val clickedItem: LiveData<MealCategory>
 
         fun fetchAllMovies()
         fun getAllMovies()

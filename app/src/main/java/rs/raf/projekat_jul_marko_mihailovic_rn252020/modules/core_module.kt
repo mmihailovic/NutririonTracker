@@ -13,6 +13,7 @@ import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
 import retrofit2.converter.gson.GsonConverterFactory
+import rs.raf.projekat_jul_marko_mihailovic_rn252020.data.datasources.local.UserDatabase
 import java.util.concurrent.TimeUnit
 
 val coreModule = module {
@@ -24,6 +25,10 @@ val coreModule = module {
     single { Room.databaseBuilder(androidContext(), MealCategoryDatabase::class.java, "MealDb")
         .fallbackToDestructiveMigration()
         .build() }
+
+    single { Room.databaseBuilder(androidContext(), UserDatabase::class.java, "UserDb")
+        .fallbackToDestructiveMigration()
+        .build()}
 
     single { createRetrofit(httpClient = get()) }
 

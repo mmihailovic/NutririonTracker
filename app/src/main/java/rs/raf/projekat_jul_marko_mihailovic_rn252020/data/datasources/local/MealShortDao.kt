@@ -20,6 +20,9 @@ abstract class MealShortDao {
     @Query("SELECT * FROM meal_short")
     abstract fun getAll(): Observable<List<MealShortEntity>>
 
+    @Query("SELECT * FROM meal_short LIMIT 10 OFFSET :pocetak")
+    abstract fun getAllWithPagination(pocetak: Int): Observable<List<MealShortEntity>>
+
     @Query("DELETE FROM meal_short")
     abstract fun deleteAll()
 
