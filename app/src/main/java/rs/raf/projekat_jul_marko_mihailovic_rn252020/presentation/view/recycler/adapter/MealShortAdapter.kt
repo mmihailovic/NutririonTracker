@@ -2,14 +2,16 @@ package rs.raf.projekat_jul_marko_mihailovic_rn252020.presentation.view.recycler
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.lifecycle.ViewModel
 import androidx.recyclerview.widget.ListAdapter
 import rs.raf.projekat_jul_marko_mihailovic_rn252020.data.models.MealShort
 import rs.raf.projekat_jul_marko_mihailovic_rn252020.databinding.LayoutItemMealBinding
 import rs.raf.projekat_jul_marko_mihailovic_rn252020.presentation.view.recycler.diff.MealShortDiffCallback
 import rs.raf.projekat_jul_marko_mihailovic_rn252020.presentation.view.recycler.viewholder.MealShortViewHolder
+import rs.raf.projekat_jul_marko_mihailovic_rn252020.presentation.viewmodel.FilterViewModel
 import rs.raf.projekat_jul_marko_mihailovic_rn252020.presentation.viewmodel.MealsForCategoryViewModel
 
-class MealShortAdapter(private val viewmodel: MealsForCategoryViewModel?) : ListAdapter<MealShort, MealShortViewHolder>(MealShortDiffCallback()){
+class MealShortAdapter(private val viewmodel: ViewModel?) : ListAdapter<MealShort, MealShortViewHolder>(MealShortDiffCallback()){
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MealShortViewHolder {
         val itemBinding = LayoutItemMealBinding.inflate(LayoutInflater.from(parent.context), parent, false)
@@ -19,7 +21,13 @@ class MealShortAdapter(private val viewmodel: MealsForCategoryViewModel?) : List
     override fun onBindViewHolder(holder: MealShortViewHolder, position: Int) {
         holder.bind(getItem(position))
         holder.itemView.setOnClickListener {
-            viewmodel!!.clickedItem.value = getItem(position)
+            when(viewmodel) {
+                is MealsForCategoryViewModel ->
+                    viewmodel!!.clickedItem.value = getItem(position)
+                is FilterViewModel ->
+                    viewmodel!!.clickedItem.value = getItem(position)
+
+            }
         }
     }
 

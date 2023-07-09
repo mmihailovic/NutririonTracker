@@ -4,4 +4,8 @@ data class MealShort (
     val idMeal: String,
     val strMeal: String,
     val strMealThumb: String
-)
+) : Comparable<MealShort> {
+    override fun compareTo(other: MealShort): Int {
+        return strMeal.compareTo(other.strMeal)
+    }
+}

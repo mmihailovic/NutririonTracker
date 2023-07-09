@@ -61,4 +61,9 @@ class MealDetailsViewModel(
         subscriptions.add(subscription)
     }
 
+    override fun onCleared() {
+        super.onCleared()
+        subscriptions.dispose()
+    }
+
 }

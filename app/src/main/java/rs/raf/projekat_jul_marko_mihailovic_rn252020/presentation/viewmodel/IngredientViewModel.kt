@@ -94,5 +94,8 @@ class IngredientViewModel(
         subscriptions.add(subscription)
     }
 
-
+    override fun onCleared() {
+        super.onCleared()
+        subscriptions.dispose()
+    }
 }

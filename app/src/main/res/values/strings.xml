@@ -9,4 +9,7 @@
     <string name="meals">Meals</string>
     <string name="ingredients">Ingredients</string>
     <string name="measures">Measures</string>
+    <string name="category">Category</string>
+    <string name="area">Area</string>
+    <string name="sort">Sort</string>
 </resources>

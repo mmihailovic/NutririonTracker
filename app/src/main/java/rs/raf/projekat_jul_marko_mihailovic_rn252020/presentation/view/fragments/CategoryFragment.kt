@@ -51,6 +51,16 @@ class CategoryFragment : Fragment(R.layout.fragment_list) {
 
     private fun initUi() {
         initRecycler()
+        initListeners()
+    }
+
+    private fun initListeners() {
+        binding.filterStranaDugme.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainerView, FilterFragment())
+                .addToBackStack(null)
+                .commit()
+        }
     }
 
     private fun initRecycler() {

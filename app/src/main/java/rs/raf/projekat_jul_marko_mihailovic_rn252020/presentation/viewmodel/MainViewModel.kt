@@ -120,7 +120,7 @@ class MainViewModel(
 
     override fun fetchAllMeals(name: String) {
         val subscription = mealRepository
-            .fetchAll(name)
+            .fetchMealByName(name)
             .startWith(Resource.Loading()) //Kada se pokrene fetch hocemo da postavimo stanje na Loading
             .subscribeOn(Schedulers.io())
             .observeOn(AndroidSchedulers.mainThread())

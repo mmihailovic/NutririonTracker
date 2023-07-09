@@ -26,6 +26,9 @@ abstract class MealShortDao {
     @Query("DELETE FROM meal_short")
     abstract fun deleteAll()
 
+    @Query("SELECT * FROM meal_short WHERE strMeal LIKE '%' || :name || '%' LIMIT 10 OFFSET :pocetak")
+    abstract fun getAllForNameWithPagination(name: String, pocetak: Int): Observable<List<MealShortEntity>>
+
     @Transaction
     open fun deleteAndInsertAll(entities: List<MealShortEntity>) {
         deleteAll()

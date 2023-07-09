@@ -12,7 +12,7 @@ class MealRepositoryImplementation(
     private val localDataSource: MealDao,
     private val remoteDataSource: MealService
 ): MealRepository {
-    override fun fetchAll(name: String): Observable<Resource<Unit>> {
+    override fun fetchMealByName(name: String): Observable<Resource<Unit>> {
         return remoteDataSource
             .searchByMealName(name)
             .doOnNext {
