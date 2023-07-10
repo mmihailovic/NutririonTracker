@@ -61,6 +61,12 @@ class CategoryFragment : Fragment(R.layout.fragment_list) {
                 .addToBackStack(null)
                 .commit()
         }
+        binding.pregledJela.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainerView, AllSavedMealsFragment())
+                .addToBackStack(null)
+                .commit()
+        }
     }
 
     private fun initRecycler() {

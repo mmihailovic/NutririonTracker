@@ -12,4 +12,12 @@
     <string name="category">Category</string>
     <string name="area">Area</string>
     <string name="sort">Sort</string>
+    <string name="save">Save</string>
+    <string name="dorucak">Dorucak</string>
+    <string name="rucak">Rucak</string>
+    <string name="uzina">Uzina</string>
+    <string name="vecera">Vecera</string>
+    <string name="selectDate">Selected date:</string>
+    <string name="filter">Filter</string>
+    <string name="pregledJela">Pregled jela</string>
 </resources>

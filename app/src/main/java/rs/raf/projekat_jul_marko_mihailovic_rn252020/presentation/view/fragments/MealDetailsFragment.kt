@@ -25,6 +25,7 @@ class MealDetailsFragment(
     // This property is only valid between onCreateView and
     // onDestroyView.
     private val binding get() = _binding!!
+    private lateinit var mealDetails: Meal
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -50,6 +51,12 @@ class MealDetailsFragment(
     }
 
     private fun initListeners() {
+        binding.buttonSave.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainerView, SaveMealFragment(mealDetails))
+                .addToBackStack(null)
+                .commit()
+        }
     }
     private fun sastojak(stringBuilder: StringBuilder, sastojak: String?, mera: String?) {
         if(sastojak != null) {
@@ -58,6 +65,7 @@ class MealDetailsFragment(
     }
 
     private fun loadData(meal: Meal) {
+        mealDetails = meal
         binding.link.text = meal.strYoutube
         binding.kategorija.text = meal.strCategory
         binding.nazivJela.text = meal.strMeal
