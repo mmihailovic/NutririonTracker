@@ -7,6 +7,7 @@ import androidx.room.Query
 import androidx.room.Update
 import io.reactivex.Completable
 import io.reactivex.Observable
+import rs.raf.projekat_jul_marko_mihailovic_rn252020.data.models.CountResult
 import rs.raf.projekat_jul_marko_mihailovic_rn252020.data.models.SavedMealEntity
 
 @Dao
@@ -28,4 +29,7 @@ abstract class SavedMealDao {
 
     @Update
     abstract fun update(meal: SavedMealEntity): Completable
+
+    @Query("SELECT date, COUNT(*) count FROM saved_meals WHERE date IN (:date) GROUP BY date ORDER BY date")
+    abstract fun count(date: List<Long>): Observable<List<CountResult>>
 }

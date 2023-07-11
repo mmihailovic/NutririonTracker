@@ -95,4 +95,7 @@ dependencies {
 
     // Picasso
     implementation 'com.squareup.picasso:picasso:2.71828'
+
+    // Chart
+    implementation 'com.diogobernardino:williamchart:3.10.1'
 }

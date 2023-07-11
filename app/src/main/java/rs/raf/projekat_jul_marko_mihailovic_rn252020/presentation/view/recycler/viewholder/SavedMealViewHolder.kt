@@ -5,6 +5,7 @@ import com.squareup.picasso.Picasso
 import rs.raf.projekat_jul_marko_mihailovic_rn252020.data.models.SavedMeal
 import rs.raf.projekat_jul_marko_mihailovic_rn252020.databinding.LayoutItemJeloBinding
 import rs.raf.projekat_jul_marko_mihailovic_rn252020.presentation.viewmodel.SavedMealViewModel
+import java.io.File
 import java.time.Instant
 import java.time.ZoneId
 
@@ -56,7 +57,12 @@ class SavedMealViewHolder(
         sastojak(stringBuilder, meal.strIngredient20, meal.strMeasure20)
         stringBuilder.deleteCharAt(stringBuilder.length - 1)
         itemBinding.sastojci.text = stringBuilder.toString()
-        Picasso.get().load(meal.strMealThumb).into(itemBinding.slikaJela)
+        if(meal.strMealThumb.startsWith("https"))Picasso.get().load(meal.strMealThumb).into(itemBinding.slikaJela)
+        else Picasso.get()
+            .load(File(meal.strMealThumb))
+            .fit()
+            .centerCrop()
+            .into(itemBinding.slikaJela)
     }
 
     private fun sastojak(stringBuilder: StringBuilder, sastojak: String?, mera: String?) {

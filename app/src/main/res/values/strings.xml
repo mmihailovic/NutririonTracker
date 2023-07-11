@@ -20,4 +20,6 @@
     <string name="selectDate">Selected date:</string>
     <string name="filter">Filter</string>
     <string name="pregledJela">Pregled jela</string>
+    <string name="statistika">Statistika</string>
+    <string name="dodataJela">Broj dodatnih jela u prethodnih 7 dana</string>
 </resources>

@@ -1,11 +1,19 @@
 package rs.raf.projekat_jul_marko_mihailovic_rn252020.presentation.view.fragments
 
+import android.Manifest
+import android.app.Activity.RESULT_OK
+import android.app.AlertDialog
 import android.app.DatePickerDialog
+import android.content.Intent
+import android.content.pm.PackageManager
+import android.graphics.Bitmap
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import com.squareup.picasso.Picasso
@@ -18,9 +26,12 @@ import rs.raf.projekat_jul_marko_mihailovic_rn252020.presentation.contract.SaveM
 import rs.raf.projekat_jul_marko_mihailovic_rn252020.presentation.view.states.AddMealState
 import rs.raf.projekat_jul_marko_mihailovic_rn252020.presentation.viewmodel.SavedMealViewModel
 import timber.log.Timber
+import java.io.File
+import java.io.FileOutputStream
 import java.time.LocalDate
 import java.time.ZoneId
 import java.util.Calendar
+
 
 class SaveMealFragment(
     private val meal: Meal
@@ -37,11 +48,14 @@ class SaveMealFragment(
     private var month: Int = calendar.get(Calendar.MONTH)
     private var day: Int = calendar.get(Calendar.DAY_OF_MONTH)
 
+    private var currentImagePath: String? = null
     companion object {
         const val DORUCAK = "DORUCAK"
         const val RUCAK = "RUCAK"
         const val UZINA = "UZINA"
         const val VECERA = "VECERA"
+        const val CAMERA_PERMISSION_REQUEST_CODE = 100
+        const val CAMERA_REQUEST_CODE = 101
     }
 
     override fun onCreateView(
@@ -67,6 +81,74 @@ class SaveMealFragment(
         initListeners()
         initData()
         initDatePicker()
+    }
+
+    private fun openCameraDialog() {
+        val cameraPermission = Manifest.permission.CAMERA
+        val permissionCheck = ContextCompat.checkSelfPermission(
+            requireContext(),
+            cameraPermission
+        )
+
+        if (permissionCheck != PackageManager.PERMISSION_GRANTED) {
+            requestPermissions(
+                arrayOf(cameraPermission),
+                CAMERA_PERMISSION_REQUEST_CODE
+            )
+        } else {
+            openCamera()
+        }
+    }
+
+    private fun openCamera() {
+        val cameraIntent = Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+        startActivityForResult(cameraIntent, CAMERA_REQUEST_CODE)
+    }
+
+    override fun onRequestPermissionsResult(
+        requestCode: Int,
+        permissions: Array<out String>,
+        grantResults: IntArray
+    ) {
+        if (requestCode == CAMERA_PERMISSION_REQUEST_CODE) {
+            if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                openCamera()
+            } else {
+                showPermissionDeniedDialog()
+            }
+        }
+    }
+
+    private fun showPermissionDeniedDialog() {
+        val dialog = AlertDialog.Builder(requireContext())
+        dialog.setTitle("Permission Denied")
+        dialog.setMessage("Please grant camera permission to take a photo.")
+        dialog.show()
+    }
+
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == CAMERA_REQUEST_CODE && resultCode == RESULT_OK) {
+            val photo: Bitmap = data?.extras?.get("data") as Bitmap
+            binding.imageView3.setImageBitmap(photo)
+
+            // Save the image
+            currentImagePath = saveImage(photo)
+            Timber.e("Putanja slike je " + currentImagePath)
+        }
+    }
+
+    private fun saveImage(bitmap: Bitmap): String? {
+        val imagesDir = requireContext().getExternalFilesDir(null) // Get the directory for storing images
+
+        val file = File(imagesDir, "my_image" + LocalDate.now().toString() +".jpg")
+        val outputStream = FileOutputStream(file)
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream)
+        outputStream.flush()
+        outputStream.close()
+
+        return file.absolutePath
     }
 
     private fun initDatePicker() {
@@ -95,6 +177,9 @@ class SaveMealFragment(
         binding.buttonDatePicker.setOnClickListener {
             datePickerDialog.show()
         }
+        binding.imageView3.setOnClickListener {
+            openCameraDialog()
+        }
         binding.buttonSaveMeal.setOnClickListener {
             val obrok: String
             if(binding.dorucak.isChecked)
@@ -104,13 +189,19 @@ class SaveMealFragment(
             else if(binding.uzina.isChecked)
                 obrok = UZINA
             else obrok = VECERA
+            val slika: String
+            if(currentImagePath != null)
+                slika = currentImagePath as String
+            else slika = meal.strMealThumb
+
+            Timber.e("Konacna slika je " + slika)
 
             val savedMeal = SavedMeal(
                 meal.idMeal,
                 meal.strMeal,
                 meal.strCategory,
                 meal.strInstructions,
-                meal.strMealThumb,
+                slika,
                 meal.strYoutube,
                 obrok,
                 LocalDate.of(year,month,day).atStartOfDay(ZoneId.systemDefault()).toEpochSecond(),

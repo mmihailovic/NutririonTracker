@@ -67,6 +67,12 @@ class CategoryFragment : Fragment(R.layout.fragment_list) {
                 .addToBackStack(null)
                 .commit()
         }
+        binding.statistika.setOnClickListener {
+            parentFragmentManager.beginTransaction()
+                .replace(R.id.fragmentContainerView, StatistikaFragment())
+                .addToBackStack(null)
+                .commit()
+        }
     }
 
     private fun initRecycler() {

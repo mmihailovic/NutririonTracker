@@ -3,6 +3,7 @@ package rs.raf.projekat_jul_marko_mihailovic_rn252020.data.repositories
 import io.reactivex.Completable
 import io.reactivex.Observable
 import rs.raf.projekat_jul_marko_mihailovic_rn252020.data.datasources.local.SavedMealDao
+import rs.raf.projekat_jul_marko_mihailovic_rn252020.data.models.CountResult
 import rs.raf.projekat_jul_marko_mihailovic_rn252020.data.models.SavedMeal
 import rs.raf.projekat_jul_marko_mihailovic_rn252020.data.models.SavedMealEntity
 
@@ -240,5 +241,10 @@ class SavedMealRepositoryImplementation(
             meal.strMeasure20
         )
         return localDataSource.update(savedMealEntity)
+    }
+
+    override fun count(date: List<Long>): Observable<List<CountResult>> {
+        return localDataSource
+            .count(date)
     }
 }
