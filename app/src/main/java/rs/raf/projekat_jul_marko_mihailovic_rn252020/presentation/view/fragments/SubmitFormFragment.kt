@@ -79,6 +79,7 @@ class SubmitFormFragment: Fragment(R.layout.fragment_forma) {
                 }
                 stringBuilder.append(meal.meal + " " + meal.mealName + "\t\n")
             }
+            stringBuilder.append("Link: http://myappformealplan")
             val intent = Intent(Intent.ACTION_SENDTO).apply {
                 data = Uri.parse("mailto:"+recipientEmail)
                 putExtra(Intent.EXTRA_EMAIL, arrayOf(recipientEmail))
