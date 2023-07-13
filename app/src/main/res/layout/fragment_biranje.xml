@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Spinner
+        android:id="@+id/spinner"
+        android:layout_width="409dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/spinner">
+
+        <RadioButton
+            android:id="@+id/dorucak"
+            android:layout_width="103dp"
+            android:layout_height="wrap_content"
+            android:text="@string/dorucak" />
+
+        <RadioButton
+            android:id="@+id/uzina"
+            android:layout_width="103dp"
+            android:layout_height="wrap_content"
+            android:text="@string/uzina" />
+
+        <RadioButton
+            android:id="@+id/rucak"
+            android:layout_width="103dp"
+            android:layout_height="wrap_content"
+            android:text="@string/rucak" />
+
+        <RadioButton
+            android:id="@+id/vecera"
+            android:layout_width="103dp"
+            android:layout_height="wrap_content"
+            android:text="@string/vecera" />
+    </RadioGroup>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="405dp"
+        android:layout_height="513dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup2" />
+
+    <Button
+        android:id="@+id/button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/add"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/recyclerView" />
+</androidx.constraintlayout.widget.ConstraintLayout>

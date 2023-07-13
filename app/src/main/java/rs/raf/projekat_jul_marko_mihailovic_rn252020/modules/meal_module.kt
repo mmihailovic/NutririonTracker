@@ -14,6 +14,7 @@ import rs.raf.projekat_jul_marko_mihailovic_rn252020.data.repositories.MealShort
 import rs.raf.projekat_jul_marko_mihailovic_rn252020.data.repositories.SavedMealRepository
 import rs.raf.projekat_jul_marko_mihailovic_rn252020.data.repositories.SavedMealRepositoryImplementation
 import rs.raf.projekat_jul_marko_mihailovic_rn252020.presentation.viewmodel.FilterViewModel
+import rs.raf.projekat_jul_marko_mihailovic_rn252020.presentation.viewmodel.FormViewModel
 import rs.raf.projekat_jul_marko_mihailovic_rn252020.presentation.viewmodel.IngredientViewModel
 import rs.raf.projekat_jul_marko_mihailovic_rn252020.presentation.viewmodel.MealDetailsViewModel
 import rs.raf.projekat_jul_marko_mihailovic_rn252020.presentation.viewmodel.MealsForCategoryViewModel
@@ -29,6 +30,7 @@ val mealModule = module {
     viewModel { FilterViewModel(mealShortRepository = get()) }
     viewModel {SavedMealViewModel(savedMealRepository = get())}
     viewModel {StatistikaViewModel(repository = get())}
+    viewModel {FormViewModel(savedMealRepository = get())}
     single<MealCategoryRepository> { MealCategoryRepositoryImplementation(localDataSource = get(), remoteDataSource = get()) }
     single<MealShortRepository> {MealShortRepositoryImplementation(localDataSource = get(), remoteDataSource = get())}
     single<MealRepository> {MealRepositoryImplementation(localDataSource = get(), remoteDataSource = get())}

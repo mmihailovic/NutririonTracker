@@ -19,7 +19,14 @@
     <string name="vecera">Vecera</string>
     <string name="selectDate">Selected date:</string>
     <string name="filter">Filter</string>
-    <string name="pregledJela">Pregled jela</string>
+    <string name="pregledJela">Jela</string>
     <string name="statistika">Statistika</string>
     <string name="dodataJela">Broj dodatnih jela u prethodnih 7 dana</string>
+    <string name="baza">Baza</string>
+    <string name="api">API</string>
+    <string name="pregled">Pregled</string>
+    <string name="plan">Plan</string>
+    <string name="select">Select</string>
+    <string name="add">Add to plan</string>
+    <string name="email">Send Email</string>
 </resources>
