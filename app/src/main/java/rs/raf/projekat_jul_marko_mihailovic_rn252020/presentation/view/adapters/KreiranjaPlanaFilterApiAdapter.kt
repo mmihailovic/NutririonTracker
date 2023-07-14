@@ -5,11 +5,11 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import rs.raf.projekat_jul_marko_mihailovic_rn252020.R
-import rs.raf.projekat_jul_marko_mihailovic_rn252020.presentation.view.fragments.FilterByAreaFragment
-import rs.raf.projekat_jul_marko_mihailovic_rn252020.presentation.view.fragments.FilterByCategoryFragment
-import rs.raf.projekat_jul_marko_mihailovic_rn252020.presentation.view.fragments.FilterByIngredientFragment
+import rs.raf.projekat_jul_marko_mihailovic_rn252020.presentation.view.fragments.FilterByAreaApiFragment
+import rs.raf.projekat_jul_marko_mihailovic_rn252020.presentation.view.fragments.FilterByCategoryApiFragment
+import rs.raf.projekat_jul_marko_mihailovic_rn252020.presentation.view.fragments.FilterByIngredientApiFragment
 
-class FilterAdapter(
+class KreiranjaPlanaFilterApiAdapter (
     fragmentManager: FragmentManager,
     private val context: Context
 ) : FragmentPagerAdapter(fragmentManager, BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT) {
@@ -22,10 +22,10 @@ class FilterAdapter(
     }
 
     override fun getItem(position: Int): Fragment {
-        return when(position) {
-            FRAGMENT_1 -> FilterByCategoryFragment()
-            FRAGMENT_2 -> FilterByAreaFragment()
-            else -> FilterByIngredientFragment()
+        return when (position) {
+            FRAGMENT_1 -> FilterByCategoryApiFragment()
+            FRAGMENT_2 -> FilterByAreaApiFragment()
+            else -> FilterByIngredientApiFragment()
         }
     }
 
@@ -34,7 +34,7 @@ class FilterAdapter(
     }
 
     override fun getPageTitle(position: Int): CharSequence? {
-        return when(position) {
+        return when (position) {
             FRAGMENT_1 -> context.getString(R.string.category)
             FRAGMENT_2 -> context.getString(R.string.area)
             else -> context.getString(R.string.searchByIngredientName)

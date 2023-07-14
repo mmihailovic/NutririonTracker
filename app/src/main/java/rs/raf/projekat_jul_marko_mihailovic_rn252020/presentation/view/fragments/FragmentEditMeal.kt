@@ -15,6 +15,7 @@ import rs.raf.projekat_jul_marko_mihailovic_rn252020.databinding.FragmentSaveMea
 import rs.raf.projekat_jul_marko_mihailovic_rn252020.presentation.contract.SaveMealContract
 import rs.raf.projekat_jul_marko_mihailovic_rn252020.presentation.view.states.AddMealState
 import rs.raf.projekat_jul_marko_mihailovic_rn252020.presentation.viewmodel.SavedMealViewModel
+import java.io.File
 import java.time.Instant
 import java.time.LocalDate
 import java.time.ZoneId
@@ -70,8 +71,8 @@ class FragmentEditMeal (
             this.year = year
             this.month = month
             this.day = dayOfMonth
-            binding.buttonDatePicker.text = String.format("%d.%d.%d", dayOfMonth, month, year)
-        },year,month,day)
+            binding.buttonDatePicker.text = String.format("%d.%d.%d", dayOfMonth, month + 1, year)
+        },year,month - 1,day)
     }
 
     private fun initData() {
@@ -82,7 +83,12 @@ class FragmentEditMeal (
         day = dateTime.dayOfMonth
         month = dateTime.monthValue
         year = dateTime.year
-        Picasso.get().load(meal.strMealThumb).into(binding.imageView3)
+        if(meal.strMealThumb.startsWith("https"))Picasso.get().load(meal.strMealThumb).into(binding.imageView3)
+        else Picasso.get()
+            .load(File(meal.strMealThumb))
+            .fit()
+            .centerCrop()
+            .into(binding.imageView3)
         binding.mealName.text = meal.strMeal
         binding.buttonDatePicker.text = String.format("%d.%d.%d", day, month, year)
         binding.dorucak.isSelected = true
@@ -116,7 +122,7 @@ class FragmentEditMeal (
                 meal.strMealThumb,
                 meal.strYoutube,
                 obrok,
-                LocalDate.of(year,month,day).atStartOfDay(ZoneId.systemDefault()).toEpochSecond(),
+                LocalDate.of(year,month + 1,day).atStartOfDay(ZoneId.systemDefault()).toEpochSecond(),
                 meal.strIngredient1,
                 meal.strIngredient2,
                 meal.strIngredient3,

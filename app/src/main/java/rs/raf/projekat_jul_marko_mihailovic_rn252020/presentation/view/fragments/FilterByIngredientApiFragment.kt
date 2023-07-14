@@ -23,7 +23,7 @@ import rs.raf.projekat_jul_marko_mihailovic_rn252020.presentation.viewmodel.Filt
 import rs.raf.projekat_jul_marko_mihailovic_rn252020.presentation.viewmodel.FormViewModel
 import timber.log.Timber
 
-class FilterByIngredientApiFragment: Fragment(R.layout.fragment_filter) {
+class FilterByIngredientApiFragment: Fragment(R.layout.fragment_filter_api) {
 
     private val mainViewModel: FilterContract.ViewModel by sharedViewModel<FilterViewModel>()
     private val formViewModel: FormContract.ViewModel by sharedViewModel<FormViewModel>()

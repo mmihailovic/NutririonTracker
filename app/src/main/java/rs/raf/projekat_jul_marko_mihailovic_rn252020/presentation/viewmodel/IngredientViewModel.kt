@@ -26,6 +26,7 @@ class IngredientViewModel(
             .debounce(200, TimeUnit.MILLISECONDS)
             .distinctUntilChanged()
             .switchMap {
+                fetchAllMeals(it)
                 mealRepository
                     .getAll()
                     .subscribeOn(Schedulers.io())

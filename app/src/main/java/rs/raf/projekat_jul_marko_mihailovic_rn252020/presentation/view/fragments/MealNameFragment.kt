@@ -64,7 +64,7 @@ class MealNameFragment: Fragment(R.layout.fragment_input) {
     private fun initListeners() {
         binding.mealNameEditText.doAfterTextChanged {
             val filter = it.toString()
-            mainViewModel.fetchAllMeals(filter)
+//            mainViewModel.fetchAllMeals(filter)
             mainViewModel.getMoviesByName(filter)
         }
     }

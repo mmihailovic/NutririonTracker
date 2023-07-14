@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import rs.raf.projekat_jul_marko_mihailovic_rn252020.R
 import rs.raf.projekat_jul_marko_mihailovic_rn252020.databinding.FragmentMealsForCategoryBinding
-import rs.raf.projekat_jul_marko_mihailovic_rn252020.presentation.view.adapters.FilterAdapter
+import rs.raf.projekat_jul_marko_mihailovic_rn252020.presentation.view.adapters.KreiranjaPlanaFilterApiAdapter
 
 class KreiranjePlanaApiFragment : Fragment(R.layout.fragment_meals_for_category) {
 
@@ -38,7 +38,7 @@ class KreiranjePlanaApiFragment : Fragment(R.layout.fragment_meals_for_category)
 
     private fun initUi() {
         binding.viewPagerForMeals.adapter =
-            FilterAdapter(
+            KreiranjaPlanaFilterApiAdapter(
                 parentFragmentManager,
                 requireContext()
             )

@@ -70,12 +70,15 @@ class StatistikaFragment: Fragment(R.layout.fragment_statistika) {
                     val day = dateTime.dayOfMonth
                     val month = dateTime.monthValue
                     val year = dateTime.year
+                    Timber.e(String.format("%d.%d.%d iz baze izvuceno",day,month,year))
                     val today = Calendar.getInstance()
                     today.set(Calendar.DAY_OF_MONTH,day)
-                    today.set(Calendar.MONTH,month)
+                    today.set(Calendar.MONTH,month - 1)
                     today.set(Calendar.YEAR,year)
+                    Timber.e("pocetno vreme kalendara " + calendar.get(Calendar.DAY_OF_MONTH) + "." + calendar.get(Calendar.MONTH))
                     while (calendar.before(today)) {
-                        barSetBaza.add(String.format("%d.%d.%d",calendar.get(Calendar.DAY_OF_MONTH),calendar.get(Calendar.MONTH),calendar.get(Calendar.YEAR)) to 0F)
+                        Timber.e("dodat dan")
+                        barSetBaza.add(String.format("%d.%d.%d",calendar.get(Calendar.DAY_OF_MONTH),calendar.get(Calendar.MONTH) + 1,calendar.get(Calendar.YEAR)) to 0F)
                         calendar.add(Calendar.DAY_OF_MONTH,1)
                     }
                     barSetBaza.removeLast()
@@ -107,10 +110,14 @@ class StatistikaFragment: Fragment(R.layout.fragment_statistika) {
         val dates =  mutableListOf<Long>()
         while (calendar.before(today) || calendar == today) {
             val year = calendar.get(Calendar.YEAR)
-            val month = calendar.get(Calendar.MONTH)
+            val month = calendar.get(Calendar.MONTH) + 1
             val day = calendar.get(Calendar.DAY_OF_MONTH)
             dates.add(LocalDate.of(year, month, day).atStartOfDay(ZoneId.systemDefault()).toEpochSecond())
             calendar.add(Calendar.DAY_OF_MONTH,1)
+        }
+        Timber.e("datumi")
+        for(date in dates) {
+            Timber.e(date.toString())
         }
         mainViewModel.count(dates)
     }

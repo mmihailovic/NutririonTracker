@@ -64,7 +64,7 @@ class IngredientFragment: Fragment(R.layout.fragment_search_ingredient) {
     private fun initListeners() {
         binding.ingredientNameEditText.doAfterTextChanged {
             val filter = it.toString()
-            viewModel.fetchAllMeals(filter)
+//            viewModel.fetchAllMeals(filter)
             viewModel.getMealsByIngredient(filter)
         }
     }

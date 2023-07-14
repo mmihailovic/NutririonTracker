@@ -156,14 +156,15 @@ class SaveMealFragment(
             this.year = year
             this.month = month
             this.day = dayOfMonth
-            binding.buttonDatePicker.text = String.format("%d.%d.%d", dayOfMonth, month, year)
+            Timber.e(String.format("Cuvam %d, a prikazujem %d", this.month, month))
+            binding.buttonDatePicker.text = String.format("%d.%d.%d", dayOfMonth, month + 1, year)
         },year,month,day)
     }
 
     private fun initData() {
         Picasso.get().load(meal.strMealThumb).into(binding.imageView3)
         binding.mealName.text = meal.strMeal
-        binding.buttonDatePicker.text = String.format("%d.%d.%d", day, month, year)
+        binding.buttonDatePicker.text = String.format("%d.%d.%d", day, month + 1, year)
         binding.dorucak.isSelected = true
     }
 
@@ -204,7 +205,7 @@ class SaveMealFragment(
                 slika,
                 meal.strYoutube,
                 obrok,
-                LocalDate.of(year,month,day).atStartOfDay(ZoneId.systemDefault()).toEpochSecond(),
+                LocalDate.of(year,month + 1,day).atStartOfDay(ZoneId.systemDefault()).toEpochSecond(),
                 meal.strIngredient1,
                 meal.strIngredient2,
                 meal.strIngredient3,
